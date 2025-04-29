@@ -1,25 +1,23 @@
-<script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait until the page is fully loaded
     const interval = setInterval(function() {
-        // Find the first button you want to trigger on (or you can target all buttons)
-        const anyButton = document.querySelector('button.btn-primary, button.btn, button[type="submit"]');
-        if (anyButton) {
-            clearInterval(interval); // Stop once a button is found
+        // Target the checkout "Confirm Order" button
+        const confirmButton = document.querySelector('button.btn-primary[type="submit"]');
 
-            anyButton.addEventListener('click', function(event) {
-                event.preventDefault(); // Pause button action
+        if (confirmButton) {
+            clearInterval(interval); // Button found, stop looking
 
+            confirmButton.addEventListener('click', function(event) {
+                event.preventDefault(); // Pause normal checkout
+
+                // Basic popup for age confirmation
                 var isOfAge = confirm("Are you 21 years or older? Click OK to confirm.");
 
                 if (isOfAge) {
-                    // If confirmed, allow the button action
-                    anyButton.form.submit();
+                    confirmButton.form.submit(); // Proceed to checkout
                 } else {
-                    alert("You must be 21 or older to continue.");
+                    alert("You must be 21 or older to complete this purchase.");
                 }
             });
         }
-    }, 300);
+    }, 300); // Check every 300 milliseconds
 });
-</script>
